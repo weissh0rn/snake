@@ -13,7 +13,7 @@ typedef struct {
 	int y;
 } Coords;
 
-enum { WIDTH = 30, HEIGHT = 30 };
+enum { WIDTH = 40, HEIGHT = 15 };
 /* const unsigned int WIDTH  = 30; */
 /* const unsigned int HEIGHT = 30; */
 

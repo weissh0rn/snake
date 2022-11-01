@@ -14,8 +14,8 @@ Coords *create_apple(Snake *snake)
 	int x, y;
 
 	do {
-		x = rand() % WIDTH;
-		y = rand() % HEIGHT;
+		x = 1 + rand() % (WIDTH - 2);
+		y = 1 + rand() % (HEIGHT - 2);
 	} while (is_coords_occupied(snake->head, x, y));
 
 	apple->x = x;
@@ -23,6 +23,7 @@ Coords *create_apple(Snake *snake)
 
 	return apple;
 }
+
 
 bool is_ate_apple(SnakeNode *head, Coords *apple)
 {

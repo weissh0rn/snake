@@ -25,8 +25,8 @@ SnakeNode *create_snake_node(SnakeNode* const tail)
 	}
 
 	if (tail == NULL) {
-		snake_node->coords.x = rand() % WIDTH;
-		snake_node->coords.y = rand() % HEIGHT;
+		snake_node->coords.x = 1 + rand() % (WIDTH - 2);
+		snake_node->coords.y = 1 + rand() % (HEIGHT - 2);
 		snake_node->next = snake_node->prev = NULL;
 		return snake_node;
 	}
@@ -69,20 +69,29 @@ void move_snake(Snake * const snake, int direction)
 
 	switch (direction) {
 		case UP:
-			tmp->coords.y += 1;
+			tmp->coords.y -= 1;
+			if (tmp->coords.y == 0) {
+				tmp->coords.y = HEIGHT - 1;
+			}
 			break;
 		case LEFT:
-			tmp->coords.y -= 1;
+			tmp->coords.x -= 1;
+			if (tmp->coords.x == 0) {
+				tmp->coords.x = WIDTH - 2;
+			}
 			break;
 		case DOWN:
 			tmp->coords.y += 1;
+			if (tmp->coords.y == HEIGHT) {
+				tmp->coords.y = 1;
+			}
 			break;
 		case RIGHT:
 			tmp->coords.x += 1;
+			if (tmp->coords.x == WIDTH - 1) {
+				tmp->coords.x = 1;
+			}
 			break;
-		default:
-			fprintf(stderr, "Impossible direction\n");
-			exit(EXIT_FAILURE);
 	}
 }
 
@@ -95,18 +104,17 @@ bool is_same_coords(SnakeNode* const fst, SnakeNode* const tmp)
 	}
 }
 
-bool can_move(Snake * const snake)
+bool game_over(Snake * const snake)
 {
-	if (snake->length < 5) {
-		return true;
-	}
-
-	SnakeNode *tmp = snake->head->next;
-	while (tmp->next != NULL) {
-		if (is_same_coords(snake->head, tmp)) {
-			return false;
+	if (snake->length > 4) {
+		SnakeNode *tmp = snake->head->next;
+		while (tmp != NULL) {
+			if (is_same_coords(snake->head, tmp)) {
+				return true;
+			}
+			tmp = tmp->next;
 		}
 	}
 
-	return true;
+	return false;
 }

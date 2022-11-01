@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "main.h"
+#include <ncurses.h>
 
 typedef struct snake_node_struct {
 	Coords coords;
@@ -23,7 +24,7 @@ Snake *create_snake(void);
 SnakeNode *create_snake_node(SnakeNode* const tail);
 void add_snake_node(Snake* const snake, SnakeNode* const snake_node);
 void move_snake(Snake * const snake, int direction);
-bool can_move(Snake * const snake);
+bool game_over(Snake * const snake);
 
 bool is_same_coords(SnakeNode* const fst, SnakeNode* const tmp);
 

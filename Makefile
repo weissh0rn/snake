@@ -8,4 +8,6 @@ apple.o: apple.c
 	$(CC) $(CFLAGS) -c apple.c -o apple.o
 
 main: main.c snake.o apple.o
-	$(CC) $(CFLAGS) main.c snake.o apple.o -o main
+	$(CC) $(CFLAGS) main.c snake.o apple.o -o main -lncurses
+
+
